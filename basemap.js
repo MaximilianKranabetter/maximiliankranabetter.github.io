@@ -37,4 +37,17 @@ let myLayers = {
 };
 
 myMap.addLayer(myLayers.bmaporthofoto30cm);
+
+
+let myMapControl = L.control.layers({
+    "Openstreetmap" : myLayers.osm,
+    "basemap.at Grundkarte" : myLayers.geolandbasemap,
+    "basemap.at Overlay" : myLayers.bmapoverlay,
+    "basemap.at grau" : myLayers.bmapgrau,
+    "basemap.at highdpi" : myLayers.bmaphidpi,
+    "basemap.at Orthofoto" : myLayers.bmaporthofoto30cm,
+});
+myMap.addControl(myMapControl);
+
+
 myMap.setView([47.267,11.383], 11);
