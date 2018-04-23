@@ -1,5 +1,5 @@
 
-let myMap = L.map("mapdiv");
+let myMap = L.map("mapdiv");            // http://leafletjs.com/reference-1.3.0.html#map-l-map
 let myLayers = {
     osm : L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
