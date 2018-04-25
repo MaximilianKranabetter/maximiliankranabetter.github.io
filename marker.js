@@ -66,4 +66,18 @@ L.control.scale({               // http://leafletjs.com/reference-1.3.0.html#con
 
 myMap.setView([47.267,11.383], 11);
 
-L.marker([47.264,11.385]).addTo(myMap);
+const uni = [47.264,11.385];
+const usi = [47.257,11.356];
+const technik = [47.263,11.343];
+
+const markerOptions = {
+    title: "Universität Innsbruck",
+    opacity: 0.6,
+    draggable: true
+}
+
+L.marker(uni, markerOptions).addTo(myMap);
+L.marker(usi, markerOptions).addTo(myMap);
+L.marker(technik, markerOptions).addTo(myMap);
+
+myMap.setView(uni, 13)
