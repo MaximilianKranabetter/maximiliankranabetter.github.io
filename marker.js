@@ -96,7 +96,15 @@ L.marker(technik, markerOptions).addTo(markerGroup);
 
 L.marker(igls,markerOption2).addTo(markerGroup);
 
-L.marker(patscherkofel,markerOption3).addTo(markerGroup).bindPopup("<p>Ausblick vom Patscherkofel</p><img style= 'width:160px' src='js/leaflet/images/patschfoto.jpg' alt='Patscherkofel'/>");
+let patscherkofelMarker = L.marker(patscherkofel,markerOption3).addTo(markerGroup)
 
+patscherkofelMarker.bindPopup("<p>Ausblick vom Patscherkofel</p><img style= 'width:160px' src='js/leaflet/images/patschfoto.jpg' alt='Patscherkofel'/>");
+
+let linecords = [igls, patscherkofel];
+
+let linie = L.polyline(linecords, {color: 'red'}).addTo(myMap);
+
+let uniPolygon = L.polygon([uni,usi,technik]);
+myMap.addLayer(uniPolygon);
 
 myMap.fitBounds(markerGroup.getBounds());
