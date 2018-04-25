@@ -65,3 +65,5 @@ L.control.scale({               // http://leafletjs.com/reference-1.3.0.html#con
 
 
 myMap.setView([47.267,11.383], 11);
+
+L.marker([47.264,11.385]).addTo(myMap);
