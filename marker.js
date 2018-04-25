@@ -1,5 +1,6 @@
 
 let myMap = L.map("mapdiv");            // http://leafletjs.com/reference-1.3.0.html#map-l-map
+
 let myLayers = {
     osm : L.tileLayer(                  // http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -41,7 +42,6 @@ let myLayers = {
 
 myMap.addLayer(myLayers.bmaporthofoto30cm);         // http://leafletjs.com/reference-1.3.0.html#map-addlayer
 
-
 let myMapControl = L.control.layers({               // http://leafletjs.com/reference-1.3.0.html#control-layers-l-control-layers
     "Openstreetmap" : myLayers.osm,
     "Basemap Grundkarte" : myLayers.geolandbasemap,
@@ -70,14 +70,17 @@ const uni = [47.264,11.385];
 const usi = [47.257,11.356];
 const technik = [47.263,11.343];
 
+let markerGroup = L.featureGroup();
+myMap.addLayer(markerGroup);
+
 const markerOptions = {
     title: "Universität Innsbruck",
     opacity: 0.6,
     draggable: true
 }
 
-L.marker(uni, markerOptions).addTo(myMap);
-L.marker(usi, markerOptions).addTo(myMap);
-L.marker(technik, markerOptions).addTo(myMap);
+L.marker(uni, markerOptions).addTo(markerGroup);
+L.marker(usi, markerOptions).addTo(markerGroup);
+L.marker(technik, markerOptions).addTo(markerGroup);
 
-myMap.setView(uni, 13)
+myMap.fitBounds(markerGroup.getBounds());
