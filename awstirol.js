@@ -77,12 +77,14 @@ for(let awsIndex = 0; awsIndex < awsdata.length; awsIndex++) {
     const markerOptions = {             //wieso funktioniert es trotzdem obwohl ich hier markerOptions 31x mit CONST (!) neu definiere?
         title: awsdata[awsIndex].name,
     };
-    L.marker([awsdata[awsIndex].lat,awsdata[awsIndex].lng], markerOptions).addTo(markerGroup).bindPopup(awsdata[awsIndex].name + "\n" + "\n" + " - Temperatur: " + awsdata[awsIndex].temperatur + "°C" + "\n" + "\n" + " - Link zum aktuellen Wetter: " + awsdata[awsIndex].link);
+    L.marker([awsdata[awsIndex].lat,awsdata[awsIndex].lng], markerOptions).addTo(markerGroup).bindPopup
+    (`<p> Name: ${awsdata[awsIndex].name} </p> 
+<p> Temperatur: ${awsdata[awsIndex].temperatur} °C  </p> 
+<p> Datum: ${awsdata[awsIndex].datum}  </p> 
+<a href="${awsdata[awsIndex].link}">Grafik</a>`);
 }
+//den "Trick" mit den $-Zeichen (dass ich javascript-Variablen im HTML-Text innerhalb des Popups verwenden kann), hab ich von Jeff Reding und Daniel Suttor
 
-//Ich habe versucht, innerhalb des bindPopup-Befehls wieder mit einem HTML-Text zu arbeiten, sodass ich Absätze einfügen kann (mit <p> oder <br>)
-//und den Link als Hyperlink hinzufügen kann. Doch leider konnte ich, wenn ich im HTML-Format arbeitete, nicht mehr auf Werte aus dem Javascript-Array zugreifen.
-//Ich würde gerne wissen, ob es einen Befehl gibt, mit dem ich auch im HTML-Text auf Values aus einem Javascript-Array zugreifen kann.
 
 
 myMap.fitBounds(markerGroup.getBounds());
