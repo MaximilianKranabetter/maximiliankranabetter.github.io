@@ -40,7 +40,7 @@ let myLayers = {
     ),
 };
 
-myMap.addLayer(myLayers.bmaporthofoto30cm);         // http://leafletjs.com/reference-1.3.0.html#map-addlayer
+myMap.addLayer(myLayers.geolandbasemap);         // http://leafletjs.com/reference-1.3.0.html#map-addlayer
 
 
 let myMapControl = L.control.layers({               // http://leafletjs.com/reference-1.3.0.html#control-layers-l-control-layers
