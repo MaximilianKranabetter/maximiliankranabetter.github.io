@@ -68,7 +68,7 @@ L.control.scale({               // http://leafletjs.com/reference-1.3.0.html#con
 // console.log("Stationen: ", stationen);
 
 const myIcon = L.icon({
-    iconUrl: 'bike.png' // https://mapicons.mapsmarker.com/
+    iconUrl: 'penguin.png' // https://mapicons.mapsmarker.com/
 })
 
 async function addGeojson(url) {
