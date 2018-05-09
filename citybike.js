@@ -1,6 +1,6 @@
 
 let myMap = L.map("mapdiv");            // http://leafletjs.com/reference-1.3.0.html#map-l-map
-const wienGroup = L.featureGroup();
+const bikeGroup = L.markerClusterGroup();
 let myLayers = {
     osm : L.tileLayer(                  // http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -51,7 +51,7 @@ let myMapControl = L.control.layers({               // http://leafletjs.com/refe
     "Basemap Orthofoto 30cm" : myLayers.bmaporthofoto30cm
 },{
     "Basemap Overlay" : myLayers.bmapoverlay,
-    "Spaziergang" : wienGroup
+    "Citybike Stationen" : bikeGroup
 },{
     collapsed: false // http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
 });
@@ -86,9 +86,19 @@ async function addGeojson(url) {
                 icon: myIcon
             });
         }
-    });
-    wienGroup.addLayer(geojson);
-    myMap.fitBounds(wienGroup.getBounds());
+    }).addTo(bikeGroup);
+
+const hash = new L.Hash(myMap);
+
+myMap.addControl( new L.Control.Search({
+    layer: bikeGroup,
+    propertyName: 'STATION'
+}) );
+
+
+let markers = L.markerClusterGroup();
+markers.addLayer(geojson);
+myMap.addLayer(markers);
    
 }
 
@@ -98,7 +108,7 @@ addGeojson(url);
 
 //myMap.setView([47.267,11.383], 11);
 
-myMap.addLayer(wienGroup);
+myMap.addLayer(bikeGroup);
 /* let geojson = L.geoJSON(spaziergang).addTo(wienGroup);
  geojson.bindPopup(function(layer) {
     const props = layer.feature.properties;
