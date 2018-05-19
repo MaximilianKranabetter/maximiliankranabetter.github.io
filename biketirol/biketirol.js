@@ -128,13 +128,7 @@ L.marker([47.298682,11.666158],{
 
 // GPX Track direkt laden und auf Ausschnitt zoomen
 
-let geojson= L.geoJSON(etappe19).addTo(overlayTrack);
-
-overlayTrack.addLayer(geojson);
-myMap.fitBounds(overlayTrack.getBounds());
-myMap.addLayer(overlayTrack);
-
-/*let gpxTrack = new L.GPX("data/etappe19.gpx", {
+let gpxTrack = new L.GPX("data/etappe19.gpx", {
     async: true
 }).addTo(overlayTrack);
 gpxTrack.on('loaded', function(evt) {
@@ -144,11 +138,11 @@ gpxTrack.on('loaded', function(evt) {
     console.log("get_elevation_max",  track.get_elevation_max().toFixed(0))
     console.log("get_elevation_gain", track.get_elevation_gain().toFixed(0))
     console.log("get_elevation_loss", track.get_elevation_loss().toFixed(0))
-    myMap.fitBounds(track.getBounds());
+    karte.fitBounds(track.getBounds());
 
     document.getElementById("get_distance").innerHTML = track.get_distance().toFixed(0);
 });
-*/
+
 
 /*
     Vorbereitung: GPX Track herunterladen und nach GeoJSON konvertieren
