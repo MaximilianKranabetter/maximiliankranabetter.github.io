@@ -113,7 +113,7 @@ L.marker([47.162648,11.745063],{
         popupAnchor : [0,-48],
     })
 }).bindPopup(
-    "<h3>Scharnitz</h3><p><a href='https://de.wikipedia.org/wiki/Scharnitz'>Wikipedia Link</a></p>"
+    "<h3>Lanersbach (Gemeinde Tux)</h3><p><a href='https://de.wikipedia.org/wiki/Tux_(Tirol)#Lanersbach'>Wikipedia Link</a></p>"
 ).addTo(overlayMarker);
 
 L.marker([47.298682,11.666158],{
@@ -123,12 +123,12 @@ L.marker([47.298682,11.666158],{
         popupAnchor : [0,-48],
     })
 }).bindPopup(
-    "<h3>Maurach - Buchau</h3><p><a href='https://de.wikipedia.org/wiki/Eben_am_Achensee'>Wikipedia Link</a></p>"
+    "<h3>Weerberg</h3><p><a href='https://de.wikipedia.org/wiki/Weerberg'>Wikipedia Link</a></p>"
 ).addTo(overlayMarker)
 
 // GPX Track direkt laden und auf Ausschnitt zoomen
 
-let gpxTrack = new L.GPX("data/etappe19.gpx", {
+let gpxTrack = new L.GPX("data/etappe19.gpx", { //wieso Fehlermeldung L.GPX is not a constructor
     async: true
 }).addTo(overlayTrack);
 gpxTrack.on('loaded', function(evt) {
@@ -138,7 +138,7 @@ gpxTrack.on('loaded', function(evt) {
     console.log("get_elevation_max",  track.get_elevation_max().toFixed(0))
     console.log("get_elevation_gain", track.get_elevation_gain().toFixed(0))
     console.log("get_elevation_loss", track.get_elevation_loss().toFixed(0))
-    karte.fitBounds(track.getBounds());
+    myMap.fitBounds(track.getBounds());
 
     document.getElementById("get_distance").innerHTML = track.get_distance().toFixed(0);
 });
