@@ -1,82 +1,156 @@
+// Leaflet Karte initialisieren
 let myMap = L.map("map", {
-    fullscreenControl: true //Kontrolloption, um Karte als Fullscreen darzustellen
+    fullscreenControl: true,
 });
 
-let etappe19Group = L.featureGroup().addTo(myMap);
+// Layer für Track und Marker hinzufügen
+let overlayTrack = L.featureGroup().addTo(myMap);
+let overlayMarker = L.featureGroup().addTo(myMap);
 
-let myLayers = {
-
-    osm: L.tileLayer( 
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            subdomains: ['a', 'b', 'c'],
-            attribution: "Datenquelle: <a href = 'https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
+// Grundkartenlayer mit OSM, basemap.at, Elektronische Karte Tirol (Sommer, Winter, Orthophoto jeweils mit Beschriftung)
+const grundkartenLayer = {
+    osm: L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            subdomains: ["a", "b", "c"],
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }
     ),
     geolandbasemap: L.tileLayer(
-        'https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png', {
-            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"], 
-            attribution: "Datenquelle: <a href = 'https://www.basemap.at'>basemap.at</a>" 
+        "https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
+            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
         }
     ),
-    gdi_summer: L.tileLayer(
-        "http://wmts.kartetirol.at/wmts/gdi_summer/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80", {
-            minZoom: 0,
-            maxZoom: 18,    
-            attribution: "Datenquelle: <a href = 'https://www.tirol.gv.at/statistik-budget/tiris/tiris-geodatendienste/impressum-elektronische-karte-tirol/'>Elektronische Karte Tirol</a>"
-        }
-    ),
-    gdi_winter: L.tileLayer(
-        "http://wmts.kartetirol.at/wmts/gdi_winter/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80", {
-            minZoom: 0,
-            maxZoom: 18,     
-            attribution: "Datenquelle: <a href = 'https://www.tirol.gv.at/statistik-budget/tiris/tiris-geodatendienste/impressum-elektronische-karte-tirol/'>Elektronische Karte Tirol</a>"
-        }
-    ),
-    gdi_ortho: L.tileLayer(
-        "http://wmts.kartetirol.at/wmts/gdi_ortho/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80", {
-            minZoom: 0,
-            maxZoom: 18,     
-            attribution: "Datenquelle: <a href = 'https://www.tirol.gv.at/statistik-budget/tiris/tiris-geodatendienste/impressum-elektronische-karte-tirol/'>Elektronische Karte Tirol</a>"
-        }
-    ),
-
     bmapoverlay: L.tileLayer(
         "https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
             subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
-            attribution: "Datenquelle: <a href = 'https://www.basemap.at'>basemap.at</a>"
+            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
         }
     ),
+    bmapgrau: L.tileLayer(
+        "https://{s}.wien.gv.at/basemap/bmapgrau/normal/google3857/{z}/{y}/{x}.png", {
+            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
+        }
+    ),
+    bmaphidpi: L.tileLayer(
+        "https://{s}.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg", {
+            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
+        }
+    ),
+    bmaporthofoto30cm: L.tileLayer(
+        "https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg", {
+            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
+        }
+    ),
+    tiris_sommer: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_base_summer/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80", {
+            attribution: "Datenquelle: <a href='https://www.data.gv.at/katalog/dataset/land-tirol_elektronischekartetirol'>eKarte Tirol</a>"
+        }
+    ),
+    tiris_winter: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_base_winter/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80", {
+            attribution: "Datenquelle: <a href='https://www.data.gv.at/katalog/dataset/land-tirol_elektronischekartetirol'>eKarte Tirol</a>"
+        }
+    ),
+    tiris_ortho: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_ortho/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80", {
+            attribution: "Datenquelle: <a href='https://www.data.gv.at/katalog/dataset/land-tirol_elektronischekartetirol'>eKarte Tirol</a>"
+        }
+    ),
+    tiris_nomenklatur: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_nomenklatur/GoogleMapsCompatible/{z}/{x}/{y}.png8", {
+            attribution: "Datenquelle: <a href='https://www.data.gv.at/katalog/dataset/land-tirol_elektronischekartetirol'>eKarte Tirol</a>",
+            pane: "overlayPane",
+        }
+    ),
+}
 
-};
+// Layergruppen für die Elektronische Karte Tirol definieren
+const tirisSommer = L.layerGroup([
+    grundkartenLayer.tiris_sommer,
+    grundkartenLayer.tiris_nomenklatur
+]);
+const tirisWinter = L.layerGroup([
+    grundkartenLayer.tiris_winter,
+    grundkartenLayer.tiris_nomenklatur
+]);
+const tirisOrtho = L.layerGroup([
+    grundkartenLayer.tiris_ortho,
+    grundkartenLayer.tiris_nomenklatur
+]);
 
-myMap.addLayer(myLayers.geolandbasemap); //Die Geolandbasemap als Default anzeigen lassen
-
-myMap.addLayer(etappe19Group);
-
-let myMapControl = L.control.layers({   //Kontrollmenü für die Layer
-    "Openstreetmap": myLayers.osm,
-    "basemap.at Grundkarte": myLayers.geolandbasemap,
-    "Elektronische Karte Tirol Sommer": myLayers.gdi_summer,
-    "Elektronische Karte Tirol Winter": myLayers.gdi_winter,
-    "Elektronische Karte Tirol Orthofoto": myLayers.gdi_ortho
+// Map control mit Grundkarten und GeoJSON Overlay definieren
+let mapSelection = L.control.layers({
+    "Openstreetmap": grundkartenLayer.osm,
+    "basemap.at Grundkarte": grundkartenLayer.geolandbasemap,
+    "basemap.at grau": grundkartenLayer.bmapgrau,
+    "basemap.at Orthofoto": grundkartenLayer.bmaporthofoto30cm,
+    "Elektronische Karte Tirol - Sommer" : tirisSommer,
+    "Elektronische Karte Tirol - Winter" : tirisWinter,
+    "Elektronische Karte Tirol - Orthophoto" : tirisOrtho,
 }, {
-    "basemap.at Overlay": myLayers.bmapoverlay,
-    "Etappe 19: ": etappe19Group,   //feature Group dem Overlay-Layer hinzufügen
-    //'Group: ': marker,
-}, {
-    collapsed: true //das Menü nicht automatisch aufmachen
+    "GPS-Track": overlayTrack,
+    "Start / Ziel": overlayMarker,
+});
+myMap.addControl(mapSelection);
+myMap.addLayer(tirisSommer);
+myMap.setView([47.426944, 11.421667],10);   // Karwendelhaus!!!!ändern
 
-}).addTo(myMap);
-
-//Maßstab
-let mayScale = L.control.scale({
+// Maßstabsleiste metrisch hinzufügen
+L.control.scale({
     maxWidth: 200,
-    metric: true,
     imperial: false,
 }).addTo(myMap);
 
-const start = [47.162648,11.745063];
-const finish = [47.298682,11.666158];
+// Start- und Endpunkte der Route als Marker mit Popup, Namen, Wikipedia Link und passenden Icons für Start/Ziel von https://mapicons.mapsmarker.com/
+L.marker([47.162648,11.745063],{
+    icon : L.icon({
+        iconUrl : "images/start.png",
+        iconAnchor : [24,48],
+        popupAnchor : [0,-48],
+    })
+}).bindPopup(
+    "<h3>Scharnitz</h3><p><a href='https://de.wikipedia.org/wiki/Scharnitz'>Wikipedia Link</a></p>"
+).addTo(overlayMarker);
+
+L.marker([47.298682,11.666158],{
+    icon : L.icon({
+        iconUrl : "images/finish.png",
+        iconAnchor : [24,48],
+        popupAnchor : [0,-48],
+    })
+}).bindPopup(
+    "<h3>Maurach - Buchau</h3><p><a href='https://de.wikipedia.org/wiki/Eben_am_Achensee'>Wikipedia Link</a></p>"
+).addTo(overlayMarker)
+
+// GPX Track direkt laden und auf Ausschnitt zoomen
+
+let geojson = L.geoJSON("data/etappe19.geojson", {
+    async: true
+}).addTo(overlayTrack);
+
+overlayTrack.addLayer(geojson);
+myMap.fitBounds(overlayTrack.getBounds());
+myMap.addLayer(overlayTrack);
+
+/*let gpxTrack = new L.GPX("data/etappe19.gpx", {
+    async: true
+}).addTo(overlayTrack);
+gpxTrack.on('loaded', function(evt) {
+    let track = evt.target;
+    console.log("get_distance",       track.get_distance().toFixed(0))
+    console.log("get_elevation_min",  track.get_elevation_min().toFixed(0))
+    console.log("get_elevation_max",  track.get_elevation_max().toFixed(0))
+    console.log("get_elevation_gain", track.get_elevation_gain().toFixed(0))
+    console.log("get_elevation_loss", track.get_elevation_loss().toFixed(0))
+    myMap.fitBounds(track.getBounds());
+
+    document.getElementById("get_distance").innerHTML = track.get_distance().toFixed(0);
+});
+*/
 
 /*
     Vorbereitung: GPX Track herunterladen und nach GeoJSON konvertieren
