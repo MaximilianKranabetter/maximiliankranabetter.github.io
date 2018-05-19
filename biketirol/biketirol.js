@@ -128,9 +128,7 @@ L.marker([47.298682,11.666158],{
 
 // GPX Track direkt laden und auf Ausschnitt zoomen
 
-let geojson = L.geoJSON("data/etappe19.geojson", {
-    async: true
-}).addTo(overlayTrack);
+let geojson= L.geoJSON(etappe19).addTo(overlayTrack);
 
 overlayTrack.addLayer(geojson);
 myMap.fitBounds(overlayTrack.getBounds());
