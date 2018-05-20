@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
     <title>Bike Trail Tirol - Etappe 19</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -12,6 +13,11 @@
     <script src="../js/leaflet/leaflet.js"></script>
 
     <link rel="stylesheet" href="styles.css" />
+
+    <script src='../js/leaflet.fullscreen/Leaflet.fullscreen.js'></script>
+    <link href='../js/leaflet.fullscreen/leaflet.fullscreen.css' rel='stylesheet' />
+    
+    <script defer src="../js/leaflet.gpx/gpx.js"></script>
     <script defer src="biketirol.js"></script>
 
 </head>
@@ -25,8 +31,8 @@
     <div class="author">
         <img src="images/user.jpg" alt="Ihr Reiseleiter" /><!-- TODO: anpassen -->
         <p class="gray">
-            <a href="mailto:klaus.foerster@uibk.ac.at">Klaus Förster</a> -<!-- TODO: anpassen -->
-            <a href="https://webmapping.github.io/biketirol/index.html">https://webmapping.github.io/biketirol/</a><!-- TODO: anpassen -->
+            <a href="mailto:max.kranabetter@outlook.com">Maximilian Kranabetter</a> -<!-- TODO: anpassen -->
+            <a href="https://maximiliankranabetter.github.io/biketirol/index.html">https://maximiliankranabetter.github.io/biketirol/</a><!-- TODO: anpassen -->
         </p>
     </div>
 
@@ -34,30 +40,41 @@
 
     
     <div class="article">
-        <h1>Etappe xx von AA nach BB</h1><!-- TODO: anpassen -->
+        <h1>Etappe 19 von Lanersbach nach Weerberg</h1><!-- TODO: anpassen -->
 
-        <p>TODO: Kurzinfo zur Strecke aus Online Beschreibung (=kursiver Text oberhalb der Karte) https://www.tirol.at/reisefuehrer/sport/radfahren/biketouren?form=biketours&theme[]=1</p>
+        <p>Die als schwierig eingestufte Bikestrecke verlangt mit 1.100 Höhenmetern einiges an Kondition ab. Die Fahrt über das Geiseljoch, einer der schönsten Übergänge Tirols, belohnt mit einem herrlichen Panorama über die Gletscher der Tuxer Alpen im Süden und mit einer langen Abfahrt nach Innerst, ein Weiler von Weerberg.</p>
 
-        TODO: Karte mit Radroute und Marker beim Start- und Endpunkt. Hintergrundkarte OSM, basemap.at und Elektronische Karte Tirol (Sommer, Winter, Orthophoto jeweils mit Beschriftung) - siehe biketirol.js
+        <h3>Daten zur Tour</h3>
+        <ul>
+            <li>Gesamtlänge: <span id='laenge'></span> m</li>
+            <li>Tiefster Punkt: <span id='elevmin'></span> m ü. NN</li>
+            <li>Höchster Punkt: <span id='elevmax'></span> m ü. NN</li>
+            <li>Höhenmeter bergauf: <span id='elevgain'></span> m</li>
+            <li>Höhenmeter bergab: <span id='elevloss'></span> m</li>
+        </ul>
         <div id="map"></div>
 
         <h2>Streckenbeschreibung</h2>
-        <p>TODO: ausführliche Streckenbeschreibung aus Online Beschreibung https://www.tirol.at/reisefuehrer/sport/radfahren/biketouren?form=biketours&theme[]=1</p>
+        <p>Etappenstart ist beim großen Dorfwegweiser im Zentrum an der Hauptstraße. Von hier radelt man entlang der Route 422 in Kehren aufwärts bis zur Abzweigung „Geiseljoch“. Diesen Schildern bzw. den Radwegweisern (Nr. 424) folgt man nun bis zum Übergang auf 2.292 Metern Seehöhe (3,5 Stunden ab Vorderlanersbach). Auf der Nordseite folgt man dem Weg (eventuell schieben) bis zur Nafingalm und Weidener Hütte. Nun kann man auf einer gut ausgebauten Forststraße die Abfahrt bis nach Innerst genießen (vom Geiseljoch bis Innerst immer der Route 403 folgen). Weiter geht es immer auf der Talstraße auswärts bis nach Weerberg (zwei Stunden ab Geiseljoch).</p>
 
         <h3>Links</h3>
         <ul>
-            <li>TODO: Link zur Etappenbeschreibung bei Biketrail Tirol</li>
-            <li>TODO: mindestens drei weitere Links zur Umgebung ...</li>
+            <li><a href="https://www.tirol.at/reisefuehrer/sport/radfahren/biketouren/a-bike-trail-tirol-mutters-sellrain">Streckenbeschreibung auf tirol.at</a></li>
+            <li>Schöner Aussichtspunkt: <a href="https://de.wikipedia.org/wiki/Geiseljoch">das Geiseljoch</a></li>
+            <li>Idealer Ort für eine Pause: <a href="https://www.weidenerhuette.at">die Weidenerhütte</a></li>
+            <li>Das Ziel: <a href="https://www.tirol.at/orte/a-weerberg">Weerberg</a></li>
+            <li>Für die besonders Motivierten: Eine Idee für eine Skitour im Winter? <a href="https://www.almenrausch.at/touren/suchergebnisse/tourdetails/tour/gilfert-hausstatt-2506-m1708.html">Hinauf auf den hohen Gilfert!</a></li>
+            <li><a href="https://www.youtube.com/watch?v=V3GJycgu-cs">Random Katzenvideo</a></li>
+            
         </ul>
     </div>
 
     <hr />
 
-    <!-- TODO: Links anpassen zu den benachbarten Etappen - siehe OLAT Tabelle ... -->
     <div id="footer" class="gray">
-        <a class="back" href="../00/index.html">
+        <a class="back" href="https://magnuskramer.github.io/biketirol/">
             <i class="fas fa-arrow-alt-circle-left"></i> vorhergehender Stop</a>
-        <a class="next" href="../00/index.html">nächster Stop
+        <a class="next" href="https://lamainet.github.io/biketirol/">nächster Stop
             <i class="fas fa-arrow-alt-circle-right"></i>
         </a>
     </div>
