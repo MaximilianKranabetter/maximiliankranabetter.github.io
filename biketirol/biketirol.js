@@ -6,6 +6,7 @@ let myMap = L.map("map", {
 // Layer für Track und Marker hinzufügen
 let overlayTrack = L.featureGroup().addTo(myMap);
 let overlayMarker = L.featureGroup().addTo(myMap);
+let overlaySteigung = L.featureGroup().addTo(myMap);
 
 // Grundkartenlayer mit OSM, basemap.at, Elektronische Karte Tirol (Sommer, Winter, Orthophoto jeweils mit Beschriftung)
 const grundkartenLayer = {
@@ -92,9 +93,11 @@ let mapSelection = L.control.layers({
     "Elektronische Karte Tirol - Winter" : tirisWinter,
     "Elektronische Karte Tirol - Orthophoto" : tirisOrtho,
 }, {
-    "GPS-Track": overlayTrack,
-    "Start / Ziel": overlayMarker,
+    "GPS-Track" : overlayTrack,
+    "Start / Ziel" : overlayMarker,
+    "Steigungslinie" : overlaySteigung
 });
+
 myMap.addControl(mapSelection);
 myMap.addLayer(tirisSommer);
 myMap.setView([47.426944, 11.421667],10);   // Karwendelhaus!!!!ändern
@@ -126,6 +129,14 @@ L.marker([47.298682,11.666158],{
     "<h3>Weerberg</h3><p><a href='https://de.wikipedia.org/wiki/Weerberg'>Wikipedia Link</a></p>"
 ).addTo(overlayMarker)
 
+// Höhenprofil control
+let profil = L.control.elevation({
+    position : "topright",
+    theme : "steelblue-theme",
+    collapsed : true
+}).addTo(myMap);
+
+
 // GPX Track direkt laden und auf Ausschnitt zoomen
 
 let gpxTrack = new L.GPX("data/etappe19.gpx", {
@@ -156,4 +167,15 @@ gpxTrack.on('loaded', function(evt) {
 
     myMap.fitBounds(track.getBounds());
 
+});
+
+gpxTrack.on("addline", function(evt){
+    profil.addData(evt.line);
+    console.log(evt.line);
+    console.log(evt.line.getLatLngs());
+    console.log(evt.line.getLatLngs()[0]);
+    console.log(evt.line.getLatLngs()[0].lat);
+    console.log(evt.line.getLatLngs()[0].lng);
+    console.log(evt.line.getLatLngs()[0].meta);
+    console.log(evt.line.getLatLngs()[0].meta.ele);
 });
