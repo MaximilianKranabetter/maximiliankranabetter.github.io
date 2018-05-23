@@ -95,7 +95,7 @@ let mapSelection = L.control.layers({
 }, {
     "GPS-Track" : overlayTrack,
     "Start / Ziel" : overlayMarker,
-    "Steigungslinie" : overlaySteigung
+    "Steigungslinie" : overlaySteigung,
 });
 
 myMap.addControl(mapSelection);
@@ -178,4 +178,47 @@ gpxTrack.on("addline", function(evt){
     console.log(evt.line.getLatLngs()[0].lng);
     console.log(evt.line.getLatLngs()[0].meta);
     console.log(evt.line.getLatLngs()[0].meta.ele);
+
+    // alle Segmente der Steigungslinie hinzufügen
+    let gpxLinie = evt.line.getLatLngs();
+    for (let i = 1; i < gpxLinie.length; i++) {
+        let p1 = gpxLinie[i-1];
+        let p2 = gpxLinie[i];
+        
+        // Empfernung zwischen Pumkten
+        let distanz = myMap.distance(
+            [p1.lat,p1.lng],
+            [p2.lat,p2.lng]
+        );
+        
+        // Höhenunterschied
+        let delta = p2.meta.ele - p1.meta.ele;
+
+        // Steigung in % berechnen
+        let proz = (distanz > 0) ? (delta / distanz * 100.0).toFixed(1) : 0;
+        
+        // Bedingung ? Ausdruck 1 wenn ja : Ausdruck 2 wenn nein
+    
+        console.log(p1.lat,p1.lng,p2.lat,p2.lng,distanz,delta,proz);
+
+        let farbe =
+            proz > 10 ? "#b10026" :
+            proz > 6 ? "#fc4e2a" :
+            proz > 2 ? "##feb24c" :
+            proz > 0 ? "#ffeda0" :
+            proz > -2 ? "#b2e2e2" :
+            proz > -6 ? "#66c2a4" :
+            proz > -10 ? "#2ca25f" :
+                        "#006d2c"
+
+        let segment = L.polyline(
+            [
+                [p1.lat,p1.lng],
+                [p2.lat,p2.lng],
+            ], {
+                color: farbe,
+                weight: 10
+            }
+        ).addTo(overlaySteigung);
+    }
 });
