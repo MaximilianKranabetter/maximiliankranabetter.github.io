@@ -1,31 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hallo github.io</title>
+    <title>Airborne GPX Tracking</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css" />
+    
+    <script defer src="igcView.js"></script>
 </head>
+
 <body>
-    <h1>Hallo Welt</h1>
-    <p>Hier bastle ich an meinen Karten ...</p>
-    <br>
-    <h3>Erste Übungen</h3>
-    <ul>
-        <li><a href="awstirol_all.html">Basemap</a></li>
-        <li><a href="marker.html">Marker Beispiel</a></li>
-        <li><a href="awstirol.html">Karte mit den automatischen Wetterstationen in Tirol</a></li>
-    </ul>
-    <h3>Karten von Wien</h3>
-    <ul>
-        <li><a href="wien.html">Spaziergang durch die Stadt - einige Routen</a></li>
-        <li><a href="citybike.html">Die Standorte der Citybikes</a></li>
-        <li><a href="sights.html">Die wichtigsten Sehenswürdigkeiten</a></li>
-        <li><a href="wien_ogd/index.html">Eine vielseitige Karte von Wien mit Pulldown Menü</a></li>
-    </ul>
-    <h3>Biketouren in Tirol</h3>
-    <ul>
-        <li><a href="biketirol/index.html">Etappe 19: Von Lanersbach nach Weerberg</a></li>
-    </ul>
+    <div id="header">
+        <h2 class="white">Anwendung vom Airborne GPX Tracking</h2>
+        <h3 class="white">...am Beispiel von Paragleit-Flügen in Tirol</h3>
+    </div>
+
+    <hr />
+
+    <div id="footer" class="gray">
+        <a class="back" href="info.html">
+            <i class="fas fa-arrow-alt-circle-left"></i>Infoseite</a>
+        <a class="next" href="map.html">Interaktive Karte
+            <i class="fas fa-arrow-alt-circle-right"></i>
+        </a>
+    </div>
+
+    <div class="author">
+      <!--  <img src="images/user.png" alt="Viel Spaß beim Fliegen" />-->
+        <p class="gray">
+            <a href="https://github.com/lauraMaxPixi/lauraMaxPixi.github.io">https://github.com/lauraMaxPixi/lauraMaxPixi.github.io/</a>
+        </p>
+    </div>
+
+    <hr />
+    
+    <div class="article">
+        <h1>Paragleiten in Tirol</h1>
+        
+        <p>
+            Die Tiroler Bergwelt aus der Vogelperspektive bewundern – das geht am einfachsten mit einem Gleitschirm. Fast überall im Land gibt es gute Startplätze für Paragleiter. Anfänger versuchen es am besten mal mit einem Tandemflug.
+        </p>
+        <p>
+            Es reichen wenige Schritte um Schwung zu holen, der mächtige Schirm richtet sich auf, und schon gleitet alles Irdische unter den Füßen davon. Die Freiheit des Fliegens spürt man kaum irgendwo so unmittelbar wie in den Traggurten eines Gleitschirms. Wer es zum ersten Mal macht, ist erstaunt, wie entspannt dieses Art des Fliegens ist. Viele Fans des Paraglidings kommen dafür extra nach Tirol. Denn im ganzen Land gibt es zahlreiche perfekt geeignete Start- und Landesplätze.
+        </p>
+        <p>
+            Viele hohe Berggipfel sorgen für ein langes Flugvergnügen bis in die Täler, oft mit Höhenunterschieden von deutlich über 1.000 Metern. Auch Anfänger ohne Paragleiterschein kommen schnell und unkompliziert zu ihrem Flugvergnügen: In allen Teilen Tirols bieten Flugschulen Tandemflüge an, bei denen man mit einem erfahrenen Pilot unter einem Gleitschirm hängt – im Sommer ebenso wie im Winter.
+        </p>
+
+        <img title="Achensee" src="https://content.xcontest.org/p1070179_5b1a9bf71e202.jpg" style="background-color: white; border: 2px solid rgb(211, 211, 211); display: block; position: relative; margin: auto auto 10px; align-self: flex-end; max-width: 100%; height: auto; cursor: pointer;" width="673" height="397">
+
+        <h1>Wichtige Infos über den Sport</h1>
+        
+        <p>
+            Beim Paragleiten gibt es viele Dinge, die man beachten muss. Die Thermik ist zum Beispiel bei der Flugplanung entscheidend. Wer Erfahrung hat und sich beim Thermikfliegen und Soaren in den Hangaufwinden taktisch klug verhält, der kann schon mal mehrere Stunden in der Luft bleiben und weite Strecken zum Beispiel bis nach Südtirol zurücklegen.
+        </p>
+        <p>
+            Außerdem ist es ratsam, die Aufteilung der Flugräume zu beachten. Wenn man einen Flug plant, sollte man darüber bescheid wissen, in welchen Gebieten man auf welchen Höhen fliegen darf.
+        </p>
+        <p>
+            Mehr Informationen zur Flugplanung und zum Paragleit-Sport im Allgemeinen finden Sie <a href="info.html">hier</a>.
+        </p>
+   
+        <img title="Gegenverkehr" src="https://content.xcontest.org/p1070182_5b1a9bfee6e9d.jpg" style="background-color: white; border: 2px solid rgb(211, 211, 211); display: block; position: relative; margin: auto auto 10px; align-self: flex-end; max-width: 100%; height: auto; cursor: pointer;" width="673" height="397">
+
+        <h1>Beispiel: Paragleit-Tracks im Inntal</h1>
+        
+        <p>
+            Am 21.04.2018 fand die Vereinsmeisterschaft vom Innsbrucker Gleitschirmvereinstatt
+            Die meisten Flugrouten gingen ins Unterinntal. In unserem Beispiel haben wir mehrere Flugroute verschiedener Paragleiter verglichen, die am selben Tag eine ähnliche Route geflogen sind.
+        </p>
+        <p>
+            Eine Karte, auf der die verschiedenen Routen auf einer Karte dargestellt sind, mehrere Vergleiche und Statistiken zur Flugauswertung, sowie einen Kommentar zu dem Flug, finden Sie <a href="map.html">hier</a>.
+        </p>
+        
+
+        <h3>Links</h3>
+        <ul>
+            <li>Die Texte aus den beiden Absätzen "Paragleiten in Tirol" und "Wichtige Infos über den Sport" sind teilweise von <a href="https://www.tirol.at/reisefuehrer/sport/paragleiten">tirol.at</a> übernommen.</li>
+            <li>Die Bilder auf dieser Seite kommen von <a href="https://www.facebook.com/pixi.gunthersson">Pixi's Facebook-Profil</a></li>
+
+        </ul>
+    </div>
+
+    <hr />
+
+    <div id="footer" class="gray">
+        <h2>Impressum</h2>
+        <br/><br/>
+        <div class="author">
+            <img src='./images/laura.jpg' style='display:inline;'/>
+      <p style='display:inline;'> Laura Mainetti - E-Mail: <a href="mailto:laura.mainetti@student.uibk.ac.at">laura.mainetti@student.uibk.ac.at</a></p>
+      <br/><br/>
+      <img src='./images/pixi.jpg' style='display:inline;'/>
+      <p style='display:inline;'> Emanuel "Pixi" Pixner - E-Mail: <a href="mailto:emanuel.pixner@student.uibk.ac.at">emanuel.pixner@student.uibk.ac.at</a> </p>
+      <br/><br/>
+      <img src='./images/max.jpg' style='display:inline;'/>
+      <p style='display:inline;'> Max Kranabetter - E-Mail: <a href="mailto:maximilian.kranabetter@student.uibk.ac.at">maximilian.kranabetter@student.uibk.ac.at</a></p>
+        </div>
+    </div>
+
 </body>
 </html>
+
+
+
+
+
+
+
